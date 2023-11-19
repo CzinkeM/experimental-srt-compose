@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
+import io.github.thibaultbee.streampack.data.VideoConfig
 import io.github.thibaultbee.streampack.error.StreamPackError
 import io.github.thibaultbee.streampack.ext.srt.streamers.CameraSrtLiveStreamer
 import io.github.thibaultbee.streampack.listeners.OnConnectionListener
@@ -48,7 +49,9 @@ fun rememberStreamer(
             enableAudio = enableAudio,
             initialOnConnectionListener = connectionListener,
             initialOnErrorListener = errorListener,
-        )
+        ).apply {
+            configure(VideoConfig())
+        }
     }
 }
 
