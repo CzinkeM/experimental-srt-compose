@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "hu.mczinke.experimental_compose_stream"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "hu.mczinke.experimental_compose_stream"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
