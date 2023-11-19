@@ -69,4 +69,7 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
 
+    implementation("io.github.thibaultbee:streampack:2.5.2")
+    implementation("io.github.thibaultbee:streampack-extension-srt:2.5.2")
+
 }
