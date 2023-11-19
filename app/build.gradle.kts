@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
 }
 
 android {
@@ -71,5 +72,16 @@ dependencies {
 
     implementation("io.github.thibaultbee:streampack:2.5.2")
     implementation("io.github.thibaultbee:streampack-extension-srt:2.5.2")
+    val koin_version= "3.3.2"
+    val koin_android_version= "3.3.2"
+    val koin_android_compose_version= "3.4.1"
+    val koin_ktor= "3.3.0"
+    // Koin Core features
+    implementation ("io.insert-koin:koin-core:$koin_version")
+    testImplementation ("io.insert-koin:koin-test:$koin_version")
+    testImplementation ("io.insert-koin:koin-test-junit4:$koin_version")
+    implementation ("io.insert-koin:koin-androidx-compose:$koin_android_compose_version")
+    implementation ("io.insert-koin:koin-android:$koin_android_version")
+    implementation ("io.insert-koin:koin-android-compat:$koin_android_version")
 
 }
