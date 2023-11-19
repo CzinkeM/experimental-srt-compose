@@ -1,13 +1,20 @@
 package hu.mczinke.experimental_compose_stream
 
 import android.Manifest
+import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -16,11 +23,16 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import io.github.thibaultbee.streampack.streamers.interfaces.ICameraStreamer
 
+private const val TAG = "Permissions"
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun RequestPermissionScreen(
     modifier: Modifier = Modifier,
+    streamer: ICameraStreamer? = null,
+    onPermissionGranted: () -> Unit,
+    onStreamButtonClick: () -> Unit,
 ) {
     val multiplePermissionsState = rememberMultiplePermissionsState(
         listOf(
@@ -28,15 +40,45 @@ fun RequestPermissionScreen(
             Manifest.permission.CAMERA,
         )
     )
+
+    LaunchedEffect(
+        key1 = multiplePermissionsState,
+        block =  {
+            if(multiplePermissionsState.allPermissionsGranted) {
+                Log.d(TAG, "RequestPermissionScreen: permission is granted")
+                onPermissionGranted()
+            }
+        }
+    )
+
     val cameraPermission = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
     if(multiplePermissionsState.allPermissionsGranted) {
-        val streamer = rememberStreamer()
+//        val streamer = rememberStreamer()
 
-        PreviewView(
+        Column(
             modifier = modifier,
-            streamer = streamer
-        )
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            if(streamer != null) {
+                PreviewView(
+                    modifier = Modifier.fillMaxSize(.9f),
+                    streamer = streamer
+                )
+            }else {
+                Box(modifier = Modifier.fillMaxSize(.9f)) {
+                    Text(
+                        modifier = Modifier
+                            .align(Alignment.Center),
+                        text = "Streamer is null"
+                    )
+                }
+            }
+            Button(onClick = onStreamButtonClick) {
+                Text(text = "Start / Stop")
+            }
+        }
 
     } else {
         Column {
