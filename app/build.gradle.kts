@@ -84,4 +84,9 @@ dependencies {
     implementation ("io.insert-koin:koin-android:$koin_android_version")
     implementation ("io.insert-koin:koin-android-compat:$koin_android_version")
 
+    val arCoreVersion = "1.33.0"
+
+    implementation ("com.google.ar:core:$arCoreVersion")
+
+
 }
