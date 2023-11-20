@@ -13,14 +13,6 @@ import io.github.thibaultbee.streampack.listeners.OnErrorListener
 import io.github.thibaultbee.streampack.streamers.interfaces.ICameraStreamer
 import io.github.thibaultbee.streampack.views.PreviewView
 
-
-@Composable
-fun TestScreen(modifier: Modifier = Modifier) {
-    val streamer = rememberStreamer()
-
-    PreviewView(streamer = streamer)
-}
-
 @Composable
 fun PreviewView(
     modifier: Modifier = Modifier,
@@ -34,38 +26,4 @@ fun PreviewView(
             }
         },
     )
-}
-
-@Composable
-fun rememberStreamer(
-    enableAudio: Boolean = false,
-    errorListener: OnErrorListener = StreamerDefaults.ErrorListener,
-    connectionListener: OnConnectionListener = StreamerDefaults.ConnectionListener,
-): CameraSrtLiveStreamer {
-    val context = LocalContext.current
-    return remember {
-        CameraSrtLiveStreamer(
-            context = context,
-            enableAudio = enableAudio,
-            initialOnConnectionListener = connectionListener,
-            initialOnErrorListener = errorListener,
-        ).apply {
-            configure(VideoConfig())
-        }
-    }
-}
-
-object StreamerDefaults {
-
-    val ErrorListener = object: OnErrorListener{
-        override fun onError(error: StreamPackError) {}
-    }
-
-    val ConnectionListener = object : OnConnectionListener {
-        override fun onLost(message: String) {}
-
-        override fun onFailed(message: String) {}
-
-        override fun onSuccess() {}
-    }
 }
