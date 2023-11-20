@@ -1,7 +1,6 @@
 package hu.mczinke.experimental_compose_stream
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.thibaultbee.streampack.data.VideoConfig

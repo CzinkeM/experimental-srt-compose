@@ -7,9 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.ar.core.Session
 import hu.mczinke.experimental_compose_stream.ar_core.ArRenderer
-import hu.mczinke.experimental_compose_stream.ar_core.BackgroundRenderer
 import hu.mczinke.experimental_compose_stream.ar_core.DisplayRotationHelper
-import io.github.thibaultbee.streampack.streamers.interfaces.ICameraStreamer
 
 @Composable
 fun ArPreviewView(
