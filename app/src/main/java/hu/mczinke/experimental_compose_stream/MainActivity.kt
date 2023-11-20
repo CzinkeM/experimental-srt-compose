@@ -42,7 +42,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         streamer = streamer,
                         onPermissionGranted = viewModel::initStream,
-                        onStreamButtonClick = viewModel::startOrStopStream
+                        onStreamButtonClick = viewModel::startOrStopStream,
+                        streamerType = StreamerType.Ar
                     )
                 }
             }

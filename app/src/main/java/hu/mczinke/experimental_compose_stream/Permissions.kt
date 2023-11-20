@@ -33,6 +33,7 @@ fun RequestPermissionScreen(
     streamer: ICameraStreamer? = null,
     onPermissionGranted: () -> Unit,
     onStreamButtonClick: () -> Unit,
+    streamerType: StreamerType,
 ) {
     val multiplePermissionsState = rememberMultiplePermissionsState(
         listOf(
@@ -61,22 +62,34 @@ fun RequestPermissionScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            if(streamer != null) {
-                PreviewView(
-                    modifier = Modifier.fillMaxSize(.9f),
-                    streamer = streamer
-                )
-            }else {
-                Box(modifier = Modifier.fillMaxSize(.9f)) {
-                    Text(
-                        modifier = Modifier
-                            .align(Alignment.Center),
-                        text = "Streamer is null"
-                    )
+            when(streamerType) {
+                StreamerType.Camera -> {
+                    if(streamer != null) {
+                        PreviewView(
+                            modifier = Modifier.fillMaxSize(.9f),
+                            streamer = streamer
+                        )
+                    }else {
+                        Box(modifier = Modifier.fillMaxSize(.9f)) {
+                            Text(
+                                modifier = Modifier
+                                    .align(Alignment.Center),
+                                text = "Streamer is null"
+                            )
+                        }
+                    }
+                    Button(onClick = onStreamButtonClick) {
+                        Text(text = "Start / Stop")
+                    }
                 }
-            }
-            Button(onClick = onStreamButtonClick) {
-                Text(text = "Start / Stop")
+                StreamerType.Ar -> {
+                    ArPreviewView(
+                        modifier = Modifier.fillMaxSize(.9f),
+                    )
+                    Button(onClick = onStreamButtonClick) {
+                        Text(text = "Start / Stop")
+                    }
+                }
             }
         }
 
